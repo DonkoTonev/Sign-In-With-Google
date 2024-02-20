@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+fastapi-authlib
+python-dotenv
+jinja2
+pymongo
