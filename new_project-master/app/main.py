@@ -7,12 +7,10 @@ from authlib.integrations.starlette_client import OAuth, OAuthError
 from .config import CLIENT_ID, CLIENT_SECRET
 from fastapi.staticfiles import StaticFiles
 from .db import users_collection, user_schema, CustomJSONEncoder
-# from pymongo import MongoClient
 from datetime import datetime
 from bson.json_util import dumps
 
 
-# app = FastAPI()
 app = FastAPI(json_encoder=CustomJSONEncoder)
 app.add_middleware(SessionMiddleware,
                    secret_key='wefuinruiof4hniofnrijhnkjnwkj')
@@ -63,20 +61,6 @@ async def login(request: Request):
     url = request.url_for('auth')
     return await oauth.google.authorize_redirect(request, url)
 
-
-# @app.get('/auth')
-# async def auth(request: Request):
-#     try:
-#         token = await oauth.google.authorize_access_token(request)
-#     except OAuthError as e:
-#         return templates.TemplateResponse(
-#             name='error.html',
-#             context={'request': request, 'error': e.error}
-#         )
-#     user = token.get('userinfo')
-#     if user:
-#         request.session['user'] = dict(user)
-#     return RedirectResponse('welcome')
 
 @app.get('/auth')
 async def auth(request: Request):
